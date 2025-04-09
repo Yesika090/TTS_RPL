@@ -1,0 +1,277 @@
+
+3. KAKULATOR { PROJECT-KALKULATOR}
+
+1. package com.rplbo.uts2;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        BilanganString b1 = new BilanganString("DuA BelaS");
+//        BilanganString b2 = new BilanganString("tiga BELAS");
+//        System.out.println("Apakah 2 digit? " + b1.apakahDuaDigit());
+//        System.out.println("Apakah lebih dari 10? " + b2.apakahLebihDari10());
+//        Operator op = new Operator("TaMbah");
+//        Kalkulator k = new Kalkulator(b1,b2,op);
+//        k.hitung();
+//        Kalkulator k2 = new Kalkulator(new BilanganString("dua"),new BilanganString("tiga"),new Operator("pangkat"));
+//        k2.hitung();
+        System.out.println(b1.getBilangan());
+    }
+}
+
+
+2. BILANGAN STRING 
+
+package com.rplbo.uts2;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class BilanganString {
+    //atribut
+    private String bilanganString;
+    private int bilangan;
+
+    public int getBilangan() {
+        return this.bilangan;
+    }
+
+    public boolean apakahLebihDari10() {
+        return this.bilangan > 10;
+    }
+
+    public boolean apakahDuaDigit() {
+        return this.bilangan > 9 && bilangan < 100;
+    }
+
+    public BilanganString(String kalimat) {
+        String[] temp = kalimat.split(" ");
+        int hasil=0;
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i].toLowerCase().equals("belas")) {
+                hasil = getNumber(temp[0]) +10;
+                break;
+
+            } else {
+                int x = getNumber(temp[i]);
+                hasil+= x * Math.pow(10,temp.length-i-1);
+            }
+        }
+
+        this.bilangan = hasil;
+    }
+
+    public int getNumber(String string) {
+        string = string.toLowerCase();
+        if (string == "satu") {
+            return 1;
+        } else if (string.equals("dua")) {
+            return 2;
+        } else if (string.equals("tiga")) {
+            return 3;
+        } else if (string.equals("empat")) {
+            return 4;
+        } else if (string.equals("lima")) {
+            return 5;
+        } else if (string.equals("enam")) {
+            return 6;
+        } else if (string.equals("tujuh")) {
+            return 7;
+        } else if (string.equals("delapan")) {
+            return 8;
+        } else if (string.equals("sembilan")) {
+            return 9;
+        } else {
+            return 0;
+        }
+
+
+    }
+}
+
+3. OPERATOR 
+
+package com.rplbo.uts2;
+
+public class Operator {
+    //Atribut
+    private String operatorString;
+    private String operatorSimbol;
+
+    public Operator(String op){
+
+    }
+
+    public String getOperatorSimbol(){
+        return this.operatorSimbol;
+    }
+}
+
+
+APPTESNYA 
+
+
+package com.rplbo.uts2;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.Assert.*;
+import java.util.stream.Stream;
+/**
+ * Unit test for simple App.
+ */
+public class AppTest
+{
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+    }
+
+    @Test
+    public void testBilanganString(){
+        BilanganString b1 = new BilanganString("DuA BelaS");
+        BilanganString b2 = new BilanganString("tiga BELAS");
+        BilanganString b3 = new BilanganString("DELapaN");
+        assertTrue(b1.apakahDuaDigit());
+        assertTrue(b2.apakahDuaDigit());
+        assertTrue(b1.apakahLebihDari10());
+        assertTrue(b2.apakahLebihDari10());
+        assertFalse(b3.apakahDuaDigit());
+        assertFalse(b3.apakahLebihDari10());
+    }
+
+    @Test
+    public void testOperator(){
+        Operator op = new Operator("TaMbah");
+        Operator op2 = new Operator("kali");
+        Operator op3 = new Operator("pangkat");
+        assertEquals("+",op.getOperatorSimbol());
+        assertEquals("*",op2.getOperatorSimbol());
+        assertEquals("^",op3.getOperatorSimbol());
+    }
+
+    @Test
+    public void testKalkulator(){
+        BilanganString b1 = new BilanganString("DuA BelaS");
+        BilanganString b2 = new BilanganString("tiga BELAS");
+        Operator op = new Operator("TaMbah");
+        Kalkulator k = new Kalkulator(b1,b2,op);
+        k.hitung();
+        assertEquals("Hasil: 25.0",
+                outputStreamCaptor.toString().trim());
+
+    }
+
+    @Test
+    public void testKalkulator2(){
+        Kalkulator k2 = new Kalkulator(new BilanganString("dua"),new BilanganString("tiga"),new Operator("pangkat"));
+        k2.hitung();
+        assertEquals("Hasil: 8.0",
+                outputStreamCaptor.toString().trim());
+    }
+}
+
+TARGET . {APP CLASS}
+
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+package com.rplbo.uts2;
+
+public class App {
+    public App() {
+    }
+
+    public static void main(String[] args) {
+        BilanganString b1 = new BilanganString("DuA BelaS");
+        System.out.println(b1.getBilangan());
+    }
+}
+
+
+{BILANGAN STRING CLASS .} 
+
+
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+package com.rplbo.uts2;
+
+public class BilanganString {
+    private String bilanganString;
+    private int bilangan;
+
+    public int getBilangan() {
+        return this.bilangan;
+    }
+
+    public boolean apakahLebihDari10() {
+        return this.bilangan > 10;
+    }
+
+    public boolean apakahDuaDigit() {
+        return this.bilangan > 9 && this.bilangan < 100;
+    }
+
+    public BilanganString(String kalimat) {
+        String[] temp = kalimat.split(" ");
+        int hasil = 0;
+
+        for(int i = 0; i < temp.length; ++i) {
+            if (temp[i].toLowerCase().equals("belas")) {
+                hasil = this.getNumber(temp[0]) + 10;
+                break;
+            }
+
+            int x = this.getNumber(temp[i]);
+            hasil = (int)((double)hasil + (double)x * Math.pow((double)10.0F, (double)(temp.length - i - 1)));
+        }
+
+        this.bilangan = hasil;
+    }
+
+    public int getNumber(String string) {
+        string = string.toLowerCase();
+        System.out.println(string);
+        if (string == "satu") {
+            return 1;
+        } else if (string.equals("dua")) {
+            return 2;
+        } else if (string.equals("tiga")) {
+            return 3;
+        } else if (string.equals("empat")) {
+            return 4;
+        } else if (string.equals("lima")) {
+            return 5;
+        } else if (string.equals("enam")) {
+            return 6;
+        } else if (string.equals("tujuh")) {
+            return 7;
+        } else if (string.equals("delapan")) {
+            return 8;
+        } else {
+            return string.equals("sembilan") ? 9 : 0;
+        }
+    }
+}
+
+
+
