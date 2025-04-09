@@ -1,0 +1,296 @@
+{MAIN JAVA  NYA}
+
+package com.rplbo.uts1;
+
+public class Main {
+    public static void main(String[] args) {
+        Titik a = new Titik(1,1);
+        Titik b = new Titik(1,5);
+        double hasil = a.distance(b);
+
+        Garis g1 = new Garis(a,b);
+        Garis g2 = new Garis(b,a);
+        g1.apakahPanjangSama(g2);
+
+        SegiEmpat sg = new SegiEmpat(new Titik(1,1),new Titik(5,1), new Titik(5,6), new Titik(1,6));
+
+    }
+}
+
+
+
+
+
+{ GARIS JAVA.}
+package com.rplbo.uts1;
+
+public class Garis {
+    //atribut
+    private Titik titikA;
+    private Titik titikB;
+
+    //konstruktor
+    public Garis(Titik titikA, Titik titikB) {
+        this.titikA = titikA;
+        this.titikB = titikB;
+    }
+
+    public Garis(Garis garis){
+        this.titikA = garis.getTitikA();
+        this.titikB = garis.getTitikB();
+    }
+
+    public Garis(Titik titikA,int x,int y){
+        this.titikA = titikA;
+        this.titikB = new Titik(x,y);
+    }
+
+    public Garis(int x,int y,Titik titikB){
+        this.titikA = new Titik(x,y);
+        this.titikB = titikB;
+    }
+
+    //getter setter
+    public Titik getTitikA() {
+        return titikA;
+    }
+
+    public void setTitikA(Titik titikA) {
+        this.titikA = titikA;
+    }
+
+    public Titik getTitikB() {
+        return titikB;
+    }
+
+    public void setTitikB(Titik titikB) {
+        this.titikB = titikB;
+    }
+
+
+    //method lain
+    public double getPanjangGaris(){
+        return this.titikA.distance(titikB);
+    }
+
+    public double getPanjangSepertigaGaris(){
+        double temp = this.titikA.distance(titikB);
+        return temp/3;
+    }
+
+    public boolean apakahPanjangSama(Garis garis){
+        double temp = this.titikA.distance(titikB);
+        return temp == garis.getPanjangGaris();
+    }
+}
+
+
+  {SEGI EMPAT JAVA. }
+
+
+package com.rplbo.uts1;
+
+public class SegiEmpat {
+    //Atribut
+    private Garis garisA;
+    private Garis garisB;
+    private Garis garisC;
+    private Garis garisD;
+    //Konstruktor
+
+
+    public SegiEmpat(Garis garisA, Garis garisB, Garis garisC, Garis garisD) {
+        this.garisA = garisA;
+        this.garisB = garisB;
+        this.garisC = garisC;
+        this.garisD = garisD;
+    }
+
+    public  SegiEmpat(Titik t1, Titik t2, Titik t3, Titik t4){
+        this.garisA = new Garis(t1,t2);
+        this.garisB = new Garis(t2,t3);
+        this.garisC = new Garis(t3,t4);
+        this.garisD = new Garis(t4,t1);
+    }
+
+    public  SegiEmpat(Garis garis,Titik c,Titik d){
+        this.garisA = garis;
+        this.garisB = new Garis(garis.getTitikB(),c );
+        this.garisC = new Garis(c,d);
+        this.garisD = new Garis(d,garis.getTitikA());
+    }
+
+    public double area(){
+        return this.garisA.getPanjangGaris() * this.garisB.getPanjangGaris();
+    }
+
+    public boolean apakahKotak(){
+        if (garisA.getPanjangGaris() != garisB.getPanjangGaris()){
+            return false;
+        } else if (garisB.getPanjangGaris() != garisC.getPanjangGaris()) {
+            return false;
+        } else if (garisC.getPanjangGaris() != garisD.getPanjangGaris()) {
+            return false;
+        } else if (garisD.getPanjangGaris() != garisA.getPanjangGaris()) {
+            return false;
+        } else return true;
+    }
+
+    //getter dan setter
+
+    public Garis getGarisA() {
+        return garisA;
+    }
+
+    public void setGarisA(Garis garisA) {
+        this.garisA = garisA;
+    }
+
+    public Garis getGarisB() {
+        return garisB;
+    }
+
+    public void setGarisB(Garis garisB) {
+        this.garisB = garisB;
+    }
+
+    public Garis getGarisC() {
+        return garisC;
+    }
+
+    public void setGarisC(Garis garisC) {
+        this.garisC = garisC;
+    }
+
+    public Garis getGarisD() {
+        return garisD;
+    }
+
+    public void setGarisD(Garis garisD) {
+        this.garisD = garisD;
+    }
+}
+
+
+
+{TITIK JAVA }
+
+
+package com.rplbo.uts1;
+
+public class Titik {
+    //Atribut
+    private int x;
+    private int y;
+    //Konstruktor
+
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Titik(int x, int y) {
+        this.setX(x);
+        this.setY(y);
+    }
+
+    public Titik(){
+
+    }
+
+    public Titik(Titik t){
+        this.setX(t.getX());
+        this.setY(t.getY());
+    }
+
+    //getter dan setter
+
+    public double distance(int x,int y){
+        int a = (this.y - y) * (this.y - y);
+        int b = (this.x - x) * (this.x - x);
+        return Math.sqrt(a+b);
+    }
+
+    public double distance(Titik t){
+        int a = (this.y - t.getY());
+        int b = (this.x - t.getX());
+        double temp = (a*a) + (b*b);
+        return Math.sqrt(temp);
+    }
+}
+
+
+
+{APP TEST}
+
+
+package com.rplbo.uts1;
+
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.Assert.*;
+
+/**
+ * Unit test for simple App.
+ */
+public class AppTest
+{
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    /**
+     * Create the test case
+     *
+     * @param testName name of the test case
+     */
+    @Test
+    public void testTitik(){
+        Titik a = new Titik(1,1);
+        assertEquals(1,a.getY());
+        assertEquals(1,a.getY());
+        assertEquals(4.0,a.distance(1,5),0);
+        assertEquals(5.0,a.distance(new Titik(1,6)),0);
+        assertEquals(0.0,a.distance(1,1),0);
+    }
+
+    @Test
+    public void testGaris(){
+        Garis g = new Garis(new Titik(1,1), new Titik(1,6));
+        Garis g2 = new Garis(new Titik(5,6),1,6);
+        Garis g3 = new Garis(5,1,new Titik(1,1));
+        Garis g4 = new Garis(g);
+        assertEquals(5.0,g.getPanjangGaris(),1);
+        assertEquals(1.67,g.getPanjangSepertigaGaris(),2);
+        assertEquals(4.0,g2.getPanjangGaris(),0);
+        assertEquals(4.0,g3.getPanjangGaris(),0);
+        assertEquals(1.33,g4.getPanjangSepertigaGaris(),2);
+    }
+
+    @Test
+    public void testSegiEmpat(){
+        SegiEmpat sg = new SegiEmpat(new Titik(1,1),new Titik(5,1), new Titik(5,6), new Titik(1,6));
+        SegiEmpat sg2 = new SegiEmpat(new Garis(new Titik(1,1),new Titik(5,1)),new Garis(new Titik(5,1), new Titik(5,6)), new Garis(new Titik(5,6),new Titik(1,6)), new Garis(new Titik(1,6), new Titik(1,1)));
+        SegiEmpat sg3 = new SegiEmpat(new Garis(new Titik(1,1),new Titik(5,1)),new Titik(5,6), new Titik(1,6));
+        assertFalse(sg.apakahKotak());
+        assertFalse(sg2.apakahKotak());
+        assertEquals(20.0, sg.area(), 0);
+        assertEquals(20.0, sg3.area(), 0);
+    }
+}
+
+
+
