@@ -1,0 +1,235 @@
+vehicle java 
+
+
+package org.vehicle;
+
+public interface Vehicle {
+	public void brake();
+	public void turnRight();
+	public void turnLeft();
+	public void forward();
+	public void backward();
+}
+
+
+
+public class Vehicle {
+    private String brand;
+    private String model;
+    private int year;
+
+    public Vehicle(String brand, String model, int year) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void displayInfo() {
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Year: " + year);
+    }
+}
+
+class Car extends Vehicle {
+    private int doors;
+
+    public Car(String brand, String model, int year, int doors) {
+        super(brand, model, year);
+        this.doors = doors;
+    }
+
+    public int getDoors() {
+        return doors;
+    }
+
+    public void setDoors(int doors) {
+        this.doors = doors;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Doors: " + doors);
+    }
+}
+
+class Bus extends Vehicle {
+    private int capacity;
+
+    public Bus(String brand, String model, int year, int capacity) {
+        super(brand, model, year);
+        this.capacity = capacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Capacity: " + capacity + " passengers");
+    }
+}
+
+class Motorcycle extends Vehicle {
+    private boolean hasSidecar;
+
+    public Motorcycle(String brand, String model, int year, boolean hasSidecar) {
+        super(brand, model, year);
+        this.hasSidecar = hasSidecar;
+    }
+
+    public boolean hasSidecar() {
+        return hasSidecar;
+    }
+
+    public void setHasSidecar(boolean hasSidecar) {
+        this.hasSidecar = hasSidecar;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Has Sidecar: " + hasSidecar);
+    }
+}
+
+class Truck extends Vehicle {
+    private double loadCapacity;
+
+    public Truck(String brand, String model, int year, double loadCapacity) {
+        super(brand, model, year);
+        this.loadCapacity = loadCapacity;
+    }
+
+    public double getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(double loadCapacity) {
+        this.loadCapacity = loadCapacity;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Load Capacity: " + loadCapacity + " tons");
+    }
+}
+
+class Engine {
+    private int horsepower;
+
+    public Engine(int horsepower) {
+        this.horsepower = horsepower;
+    }
+
+    public int getHorsepower() {
+        return horsepower;
+    }
+}
+
+class Transmission {
+    private String type;
+
+    public Transmission(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+}
+
+class Wheel {
+    private int size;
+
+    public Wheel(int size) {
+        this.size = size;
+    }
+
+    public int getSize() {
+        return size;
+    }
+}
+
+class Tire {
+    private String type;
+
+    public Tire(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+}
+
+class Wagon extends Vehicle {
+    private int storageCapacity;
+
+    public Wagon(String brand, String model, int year, int storageCapacity) {
+        super(brand, model, year);
+        this.storageCapacity = storageCapacity;
+    }
+
+    public int getStorageCapacity() {
+        return storageCapacity;
+    }
+
+    public void setStorageCapacity(int storageCapacity) {
+        this.storageCapacity = storageCapacity;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Storage Capacity: " + storageCapacity + " liters");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car car = new Car("Toyota", "Camry", 2022, 4);
+        car.displayInfo();
+        
+        Bus bus = new Bus("Mercedes", "Sprinter", 2020, 30);
+        bus.displayInfo();
+        
+        Truck truck = new Truck("Volvo", "FH16", 2021, 15);
+        truck.displayInfo();
+        
+        Wagon wagon = new Wagon("Subaru", "Outback", 2023, 500);
+        wagon.displayInfo();
+    }
+}
